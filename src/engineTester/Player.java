@@ -20,7 +20,7 @@ public class Player {
 	public double x = 0.1;
 	public double y = 0;
 	public double yVel = 0;
-	public double xSpeed = 20;
+	private double xSpeed = 20;
 	public double yForce = 35;
 	public TexturedModel model;
 	public int currency = 0;
@@ -86,19 +86,19 @@ public class Player {
 			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			GroundData leftGD1 = new GroundData(x - 125 - xSpeed, y - 245);
-			GroundData leftGD2 = new GroundData(x - 125 - xSpeed, y + 185);
-			GroundData leftGD3 = new GroundData(x - 125 - xSpeed, y - 20);
+			GroundData leftGD1 = new GroundData(x - 125 - getxSpeed(), y - 245);
+			GroundData leftGD2 = new GroundData(x - 125 - getxSpeed(), y + 185);
+			GroundData leftGD3 = new GroundData(x - 125 - getxSpeed(), y - 20);
 			if (!leftGD1.inGround && !leftGD2.inGround && !leftGD3.inGround){
-				x -= xSpeed;
+				x -= getxSpeed();
 			}
 		}
 		if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			GroundData rightGD1 = new GroundData(x + 130 + xSpeed, y - 245);
-			GroundData rightGD2 = new GroundData(x + 130 + xSpeed, y + 185);
-			GroundData rightGD3 = new GroundData(x - 125 + xSpeed, y - 20);
+			GroundData rightGD1 = new GroundData(x + 130 + getxSpeed(), y - 245);
+			GroundData rightGD2 = new GroundData(x + 130 + getxSpeed(), y + 185);
+			GroundData rightGD3 = new GroundData(x - 125 + getxSpeed(), y - 20);
 			if (! rightGD1.inGround && !rightGD2.inGround && !rightGD3.inGround) {
-				x += xSpeed;
+				x += getxSpeed();
 			}
 		}
 		y += yVel;
@@ -117,5 +117,24 @@ public class Player {
 			return true;
 		}
 		return false;
+	}
+
+	public double getxSpeed() {
+		return ((xSpeed-10) * Math.pow(9d/10d, (double) currency/2d)) + 10;
+	}
+	public void changexSpeed(boolean byShop) {
+		if (byShop) {
+			xSpeed += 1;
+		}else {
+			xSpeed *= 2;
+		}
+	}
+	public void pickupBlue() {
+		xSpeed *= 19/20;
+	}
+	public void reset() {
+		currency = 0;
+		xSpeed = 20;
+		yForce = 35;
 	}
 }
