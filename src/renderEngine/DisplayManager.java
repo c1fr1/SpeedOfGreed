@@ -20,14 +20,15 @@ public class DisplayManager {
 		.withProfileCore(true);
 		
 		try {//Display is the display object
-			Display.setDisplayMode(new DisplayMode(WIDTH,HEIGHT));//set width/height
+			Display.setDisplayMode(new DisplayMode(1280,720));//set width/height
+			//Display.setFullscreen(true);
 			Display.create(new PixelFormat(), attribs);
 			Display.setTitle("Speed of Greed");
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
 		
-		GL11.glViewport(0, 0, WIDTH, HEIGHT);//sets up dimensions of the view.
+		GL11.glViewport(0, 0, 1280, 720);//sets up dimensions of the view.
 		
 	}
 	

@@ -3,8 +3,8 @@ package shaders;
 import org.lwjgl.opengl.GL20;
 
 public class FlashShader extends ShaderProgram {
-	private static final String VERTEX_FILE = "src/shaders/playerVertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/shaders/gradientFragShader.txt";
+	private static final String VERTEX_FILE = "res/shaders/playerVertexShader.txt";
+	private static final String FRAGMENT_FILE = "res/shaders/gradientFragShader.txt";
 	public FlashShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}

@@ -242,13 +242,12 @@ public class Level {
 				if (coins[i].distTo(MainGameLoop.mainPlayer) < 250) {
 					coins[i].collected = true;
 					if (coins[i].tier == CoinLevel.gold) {
-						MainGameLoop.mainPlayer.xSpeed = ((MainGameLoop.mainPlayer.xSpeed-5f)*9f/10f) + 5f;
 						MainGameLoop.mainPlayer.currency += 2;
 					}else if (coins[i].tier == CoinLevel.heavy) {
-						MainGameLoop.mainPlayer.xSpeed *= 17f/20f;
+						MainGameLoop.mainPlayer.pickupBlue();
 						MainGameLoop.mainPlayer.currency += 2;
 					}else if (coins[i].tier == CoinLevel.delta) {
-						MainGameLoop.mainPlayer.xSpeed *= 2f;
+						MainGameLoop.mainPlayer.changexSpeed(false);
 						MainGameLoop.mainPlayer.yForce *= 3f/4f;
 						MainGameLoop.mainPlayer.currency += 5;
 					}else if (coins[i].tier == CoinLevel.pass) {

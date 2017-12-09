@@ -3,8 +3,8 @@ package shaders;
 import org.lwjgl.opengl.GL20;
 
 public class EnemyShader extends ShaderProgram {
-	private static final String VERTEX_FILE = "src/shaders/playerVertexShader.txt";
-	private static final String FRAGMENT_FILE = "src/shaders/darkFragShader.txt";
+	private static final String VERTEX_FILE = "res/shaders/playerVertexShader.txt";
+	private static final String FRAGMENT_FILE = "res/shaders/darkFragShader.txt";
 	public EnemyShader() {
 		super(VERTEX_FILE, FRAGMENT_FILE);
 	}

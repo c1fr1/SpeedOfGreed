@@ -1,6 +1,7 @@
 package engineTester;
 
 import java.awt.Point;
+import java.io.File;
 import java.io.FilterInputStream;
 
 import org.lwjgl.input.Keyboard;
@@ -38,9 +39,7 @@ public class MainGameLoop {
 	public static float enemyTime = 0f;
 	public static void end(boolean completely) {
 		if (completely) {
-			mainPlayer.currency = 0;
-			mainPlayer.xSpeed = 20;
-			mainPlayer.yForce = 35;
+			mainPlayer.reset();
 		}
 		mainPlayer.x = 0.1;
 		mainPlayer.y = 0;
@@ -122,6 +121,7 @@ public class MainGameLoop {
 		}
 	}
 	public static void main(String[] args) {
+		System.setProperty("org.lwjgl.librarypath", new File("res/natives").getAbsolutePath());
 		float width = (float) DisplayManager.WIDTH;
 		float height = (float) DisplayManager.HEIGHT;
 		
@@ -181,10 +181,10 @@ public class MainGameLoop {
 		shopKeeper = new TexturedModel(smod, sTexture);
 		
 		float[] svcoords = {
-				-1000/width, 500/width, 0f,//-+
-				-1000/width, -500/width, 0f,//--
-				1000f/width, -500/width, 0f,//+-
-				1000f/width, 500/width, 0f,//++
+				-1000f/width, 500f/height, 0f,//-+
+				-1000f/width, -500f/height, 0f,//--
+				1000f/width, -500f/height, 0f,//+-
+				1000f/width, 500f/height, 0f,//++
 		};
 		RawModel svmod = MainGameLoop.mainLoader.loadToVAO(svcoords, textureCoords, indices);
 		ModelTexture svTexture = new ModelTexture(MainGameLoop.mainLoader.loadTexture("shopUI"));
@@ -263,21 +263,11 @@ public class MainGameLoop {
 			if (flashTime >= 59.5) {
 				renderer.render(shopView);
 				if (Keyboard.isKeyDown(Keyboard.KEY_S) && mainPlayer.currency >= 5) {
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed += 1;
+					mainPlayer.changexSpeed(true);
 					mainPlayer.currency -= 5;
 				}
 				if (Keyboard.isKeyDown(Keyboard.KEY_J) && mainPlayer.currency >= 5) {
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
-					mainPlayer.yForce += 1;	
+					mainPlayer.yForce += 3;
 					mainPlayer.currency -= 5;
 				}
 			}
@@ -291,7 +281,6 @@ public class MainGameLoop {
 					if (mainPlayer.currency > 0) {
 						if (enemyTime%20 == 0) {
 							mainPlayer.currency -= 1;
-							mainPlayer.xSpeed = ((mainPlayer.xSpeed-5)*10f/9f)+5;
 						}
 					}else {
 						ded = true;
